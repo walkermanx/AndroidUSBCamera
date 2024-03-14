@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        immersionBar= null
+        immersionBar = null
     }
 
     private fun setStatusBar() {

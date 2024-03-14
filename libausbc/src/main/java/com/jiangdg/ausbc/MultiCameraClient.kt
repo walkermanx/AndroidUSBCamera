@@ -30,6 +30,7 @@ import com.jiangdg.ausbc.utils.Utils
 import com.jiangdg.ausbc.widget.IAspectRatio
 import com.jiangdg.usb.*
 import com.jiangdg.usb.DeviceFilter
+import com.jiangdg.uvc.IButtonCallback
 import com.jiangdg.uvc.UVCCamera
 import java.text.SimpleDateFormat
 import java.util.*
@@ -264,6 +265,7 @@ class MultiCameraClient(ctx: Context, callback: IDeviceConnectCallBack?) {
         private var mRenderManager: RenderManager?  = null
         private var mCameraView: Any? = null
         private var mCameraStateCallback: ICameraStateCallBack? = null
+        var deviceClickListener: IButtonCallback? = null
         private var mSizeChangedFuture: SettableFuture<Pair<Int, Int>>? = null
         protected var mContext = ctx
         protected var mCameraRequest: CameraRequest? = null

@@ -20,6 +20,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -64,6 +65,7 @@ import com.jiangdg.demo.EffectListDialog.Companion.KEY_ANIMATION
 import com.jiangdg.demo.EffectListDialog.Companion.KEY_FILTER
 import com.jiangdg.demo.databinding.DialogMoreBinding
 import com.jiangdg.utils.MMKVUtils
+import com.jiangdg.uvc.IButtonCallback
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
@@ -72,7 +74,7 @@ import java.util.*
  *
  * @author Created by jiangdg on 2022/1/28
  */
-class DemoFragment : CameraFragment(), View.OnClickListener, CaptureMediaView.OnViewClickListener {
+class DemoFragment : CameraFragment(), View.OnClickListener, CaptureMediaView.OnViewClickListener, IButtonCallback {
     private var mMultiCameraDialog: MultiCameraDialog? = null
     private lateinit var mMoreBindingView: DialogMoreBinding
     private var mMoreMenu: PopupWindow? = null
@@ -148,6 +150,18 @@ class DemoFragment : CameraFragment(), View.OnClickListener, CaptureMediaView.On
     private var mCameraMode = CaptureMediaView.CaptureMode.MODE_CAPTURE_PIC
 
     private lateinit var mViewBinding: FragmentDemoBinding
+
+    override fun generateCamera(ctx: Context, device: UsbDevice): MultiCameraClient.ICamera {
+        Logger.i(TAG, "CameraUVC generateCamera.")
+        return super.generateCamera(ctx, device).apply {
+            deviceClickListener = this@DemoFragment
+            Logger.i(TAG, "CameraUVC set deviceClickListener.")
+        }
+    }
+
+    open override fun onButton(button: Int, state: Int) {
+        Logger.i(TAG, "CameraUVC onButton, button = $button, state = $state")
+    }
 
     override fun initView() {
         super.initView()

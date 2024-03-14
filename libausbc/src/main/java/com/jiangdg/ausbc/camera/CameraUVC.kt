@@ -123,6 +123,8 @@ class CameraUVC(ctx: Context, device: UsbDevice) : MultiCameraClient.ICamera(ctx
         try {
             mUvcCamera = UVCCamera().apply {
                 open(mCtrlBlock)
+                setButtonCallback(deviceClickListener)
+                Logger.i(TAG, "setButtonCallback. $deviceClickListener")
             }
         } catch (e: Exception) {
             closeCamera()
