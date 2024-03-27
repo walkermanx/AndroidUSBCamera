@@ -161,6 +161,9 @@ class DemoFragment : CameraFragment(), View.OnClickListener, CaptureMediaView.On
 
     open override fun onButton(button: Int, state: Int) {
         Logger.i(TAG, "CameraUVC onButton, button = $button, state = $state")
+        if (state == 0) {
+            onViewClick(mCameraMode)
+        }
     }
 
     override fun initView() {
@@ -335,7 +338,7 @@ class DemoFragment : CameraFragment(), View.OnClickListener, CaptureMediaView.On
     override fun getGravity(): Int = Gravity.CENTER
 
     override fun onViewClick(mode: CaptureMediaView.CaptureMode?) {
-        if (! isCameraOpened()) {
+        if (!isCameraOpened()) {
             ToastUtils.show("camera not worked!")
             return
         }
@@ -458,7 +461,7 @@ class DemoFragment : CameraFragment(), View.OnClickListener, CaptureMediaView.On
     }
 
     override fun onClick(v: View?) {
-//        if (! isCameraOpened()) {
+//        if (!isCameraOpened()) {
 //            ToastUtils.show("camera not worked!")
 //            return
 //        }
@@ -636,7 +639,7 @@ class DemoFragment : CameraFragment(), View.OnClickListener, CaptureMediaView.On
     private fun goToGalley() {
         try {
             Intent(
-                Intent.ACTION_VIEW,
+                Intent.ACTION_PICK,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI
             ).apply {
                 startActivity(this)
